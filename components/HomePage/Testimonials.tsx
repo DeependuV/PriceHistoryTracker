@@ -5,7 +5,7 @@ import { useState } from "react";
 interface Testimonial {
   id: number;
   name: string;
-  role: string;
+  // role: string;
   content: string;
   rating: number;
   avatar: string;
@@ -14,55 +14,55 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Priya Sharma",
-    role: "Fashion Enthusiast",
+    name: "Sujla Motors",
+    // role: "Fashion Enthusiast",
     content:
-      "RealPrice Tracker has saved me thousands! I never buy anything online without checking the price history first. The alerts are super timely and accurate.",
+      "Flipshope extension is a gud app. Pls try this application and u will enjoy big savings and simple price monitoring. Highly recommend!",
     rating: 5,
-    avatar: "PS",
+    avatar: "SM",
   },
   {
     id: 2,
-    name: "Rajesh Kumar",
-    role: "Tech Professional",
+    name: "Shubham Roy",
+    // role: "Tech Professional",
     content:
-      "As someone who buys a lot of electronics, this tool is invaluable. The price comparison feature helps me find the best deals across multiple platforms instantly.",
+      "The Price Graph Feature is really amazing ! It gives me the expert data I need to avoid fake sales and buy at the lowest price. Seriously a powerful and trustworthy price tracker.",
     rating: 5,
-    avatar: "RK",
+    avatar: "SR",
   },
   {
     id: 3,
-    name: "Ananya Patel",
-    role: "Smart Shopper",
+    name: "Tarun Sharma",
+    // role: "Smart Shopper",
     content:
-      "I love the automatic coupon application! It's like having a personal shopping assistant that ensures I never miss a discount. Highly recommend!",
+      "Best price tracker extension, seriously. It helped me save monies by providing such amazin' deals and great coupons. Big thanks to Flipshope team.",
     rating: 5,
-    avatar: "AP",
+    avatar: "TS",
   },
   {
     id: 4,
-    name: "Vikram Mehta",
-    role: "Budget-Conscious Dad",
+    name: "Shubham Kumar",
+    // role: "Budget-Conscious Dad",
     content:
-      "With a family to take care of, every rupee counts. RealPrice Tracker helps me make informed decisions and save significantly on household purchases.",
+      "Must say, wonderful shopping extension. I totaly luv the accurate price tracking feature. It gives me confidence I am always getting the lowest price online. Five stars!",
     rating: 5,
-    avatar: "VM",
+    avatar: "SK",
   },
   {
     id: 5,
     name: "Sneha Reddy",
-    role: "Online Shopping Expert",
+    // role: "Online Shopping Expert",
     content:
-      "The price history charts are amazing! I can see exactly when products typically go on sale and plan my purchases accordingly. Smart shopping made easy!",
+      "The Auto Buy feature is a life saver! I was able to snag that hard-to-get item during the flash sale with no hassel. Its great experience. Get this extension now!",
     rating: 5,
     avatar: "SR",
   },
   {
     id: 6,
     name: "Arjun Singh",
-    role: "Gadget Lover",
+    // role: "Gadget Lover",
     content:
-      "I've been using RealPrice Tracker for over 2 years now. The price drop alerts have helped me snag incredible deals on gadgets I've been eyeing for months!",
+      "Flipshope's price alerts are soo reliable. My targeted price drop was notified instantly. This price tracker gives me so much peace of mind and saves me cash, yay!",
     rating: 5,
     avatar: "AS",
   },
@@ -131,7 +131,7 @@ export default function Testimonials() {
                   <p className="font-semibold text-[#2c3562]">
                     {testimonial.name}
                   </p>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  {/* <p className="text-sm text-gray-500">{testimonial.role}</p> */}
                 </div>
               </div>
             </div>
@@ -172,9 +172,9 @@ export default function Testimonials() {
                 <p className="font-semibold text-[#2c3562]">
                   {testimonials[currentIndex].name}
                 </p>
-                <p className="text-sm text-gray-500">
+                {/* <p className="text-sm text-gray-500">
                   {testimonials[currentIndex].role}
-                </p>
+                </p> */}
               </div>
             </div>
 

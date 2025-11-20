@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { Heart, Share2, ChevronLeft, ChevronRight } from "lucide-react";
-import { ProductData, StoreComparison } from "@/types/product";
+// import { useRouter } from "next/navigation";
+import { Share2 } from "lucide-react";
+import { ProductData } from "@/types/product";
+import { buyNowProduct } from "@/utils/buyApi";
 
 interface ProductDetailsProps {
   productData: ProductData;
@@ -9,18 +11,97 @@ interface ProductDetailsProps {
 }
 
 // Store name mapping
-const storeNames: { [key: number]: string } = {
-  1: "Flipkart",
-  2: "Amazon",
-  3: "Myntra",
-  4: "Ajio",
-  5: "Meesho",
-  // Add more store mappings as needed
+const storeInfo: { [key: number]: { label: string; favIcon: string; url: string } } = {
+  1: {
+    label: "Flipkart",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=flipkart.com",
+    url: "https://www.flipkart.com",
+  },
+  2: {
+    label: "Amazon",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=amazon.in",
+    url: "https://www.amazon.in",
+  },
+  3: {
+    label: "ShopClues",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=shopclues.com",
+    url: "https://www.shopclues.com",
+  },
+  4: {
+    label: "Snapdeal",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=snapdeal.com",
+    url: "https://www.snapdeal.com",
+  },
+  5: {
+    label: "JioMart",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=jiomart.com",
+    url: "https://www.jiomart.com",
+  },
+  6: {
+    label: "Tata CLiQ",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=tatacliq.com",
+    url: "https://www.tatacliq.com",
+  },
+  7: {
+    label: "Myntra",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=myntra.com",
+    url: "https://www.myntra.com",
+  },
+  8: {
+    label: "Nykaa",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=nykaa.com",
+    url: "https://www.nykaa.com",
+  },
+  9: {
+    label: "Ajio",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=ajio.com",
+    url: "https://www.ajio.com",
+  },
+  10: {
+    label: "Pepperfry",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=pepperfry.com",
+    url: "https://www.pepperfry.com",
+  },
+  11: {
+    label: "FirstCry",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=firstcry.com",
+    url: "https://www.firstcry.com",
+  },
+  12: {
+    label: "Nykaa Fashion",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=nykaafashion.com",
+    url: "https://www.nykaafashion.com",
+  },
+  13: {
+    label: "Croma",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=croma.com",
+    url: "https://www.croma.com",
+  },
+  14: {
+    label: "Reliance Digital",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=reliancedigital.in",
+    url: "https://www.reliancedigital.in",
+  },
+  15: {
+    label: "Meesho",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=meesho.com",
+    url: "https://www.meesho.com",
+  },
+  16: {
+    label: "Purplle",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=purplle.com",
+    url: "https://www.purplle.com",
+  },
+  17: {
+    label: "Shopsy",
+    favIcon: "https://www.google.com/s2/favicons?sz=64&domain=shopsy.in",
+    url: "https://www.shopsy.in",
+  },
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ productData }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-
+  // const router = useRouter();
   const images: string[] = [
     productData.imgurl,
     productData.imgurl,
@@ -39,6 +120,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productData }) => {
   const discount: number = Math.round(
     ((productData.mrp - productData.price) / productData.mrp) * 100
   );
+
+  const handleBuyNow = async (): Promise<void> => {
+    // setIsLoading(true);
+    try {
+      // Call API to log the purchase
+      const urlData = await buyNowProduct(
+        productData.sid, 
+        productData.pid,
+        // productData.url // Pass product URL if available
+      );
+      
+      // Redirect to the redirect page
+      const redirectUrl = urlData.data.data;
+
+      // console.log(urlData.data.data, "checking here")
+      
+      // router.push(redirectUrl);
+      window.open(redirectUrl, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error('Buy now failed:', error);
+      alert('Failed to initiate purchase. Please try again.');
+      // setIsLoading(false);
+    }
+    // Don't set isLoading to false here as we're navigating away
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -86,7 +192,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productData }) => {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm font-medium text-gray-600">
-                {storeNames[productData.sid] || "Store"}
+                {storeInfo[productData.sid].label || "Store"}
               </span>
             </div>
             <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
@@ -126,7 +232,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productData }) => {
             </div>
 
             <div className="flex gap-3 mb-6">
-              <button className="flex-1 bg-[#3145a8] hover:bg-[#2c3562] cursor-pointer text-white font-semibold py-3 px-6 rounded-lg transition">
+              <button onClick={handleBuyNow} className="flex-1 bg-[#3145a8] hover:bg-[#2c3562] cursor-pointer text-white font-semibold py-3 px-6 rounded-lg transition">
                 Buy Now
               </button>
               <a

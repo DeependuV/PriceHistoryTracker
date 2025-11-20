@@ -119,7 +119,7 @@ export default function ProductPageContent() {
   if (error || !productData) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-[#3145a8] via-[#2c3562] to-[#3145a8]">
-        <div className="text-white text-xl font-semibold">{error || 'Product not found'}</div>
+        <div className="text-white text-xl font-semibold">{error || 'Finding Product Details...'}</div>
       </div>
     );
   }

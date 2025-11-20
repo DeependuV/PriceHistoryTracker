@@ -5,7 +5,7 @@ import { ChartDataPoint } from '@/types/product';
 
 interface PriceHistoryProps {
   chartData: ChartDataPoint[];
-  productName: string;
+  productName?: string;
 }
 
 const PriceHistory: React.FC<PriceHistoryProps> = ({ chartData, productName }) => {

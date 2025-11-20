@@ -1,11 +1,13 @@
 "use client";
 import React, { useMemo, useEffect, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { buyNowProduct } from '@/utils/buyApi';
 
 // Types
 interface StoreComparison {
   sid: number;
   price: number;
+  pid: string;
 }
 
 interface ProductData {
@@ -137,6 +139,31 @@ const DealScore: React.FC<DealScoreProps> = ({ storeComparison, productData }) =
   const dealLabels = ['Poor', 'Fair', 'Good', 'Excellent'];
   const dealColors = ['#EF4444', '#F59E0B', '#FCD34D', '#10B981'];
   const dealBgColors = ['#FEE2E2', '#FEF3C7', '#FEF9C3', '#D1FAE5'];
+
+    const handleBuyNow = async (sid : any, pid: any) => {
+      // setIsLoading(true);
+      try {
+        // Call API to log the purchase
+        const urlData = await buyNowProduct(
+          sid, 
+          pid,
+          // productData.url // Pass product URL if available
+        );
+        
+        // Redirect to the redirect page
+        const redirectUrl = urlData.data.data;
+  
+        // console.log(urlData.data.data, "checking here")
+        
+        // router.push(redirectUrl);
+        window.open(redirectUrl, "_blank", "noopener,noreferrer");
+      } catch (error) {
+        console.error('Buy now failed:', error);
+        alert('Failed to initiate purchase. Please try again.');
+        // setIsLoading(false);
+      }
+      // Don't set isLoading to false here as we're navigating away
+    };
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
@@ -322,8 +349,10 @@ const DealScore: React.FC<DealScoreProps> = ({ storeComparison, productData }) =
           <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
             {storeComparison.map((store, idx) => {
               const storeDetails = storeInfo[store.sid];
+              // console.log(store, "chcvhwvjhvklwejdvkjevkbkjwvbwkjvbnekwjbvkjwebjvbekrjv")
               return (
                 <div 
+                onClick={() => handleBuyNow(store.sid, store.pid)}
                   key={idx} 
                   className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer"
                 >
